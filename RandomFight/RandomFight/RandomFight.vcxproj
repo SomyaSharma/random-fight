@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="ConsoleReaderWriter.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="Fighter1.h" />
     <ClInclude Include="Game.h" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="ConsoleReaderWriter.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Fighter1.cpp" />
     <ClCompile Include="Game.cpp" />
