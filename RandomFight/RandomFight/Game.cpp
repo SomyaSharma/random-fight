@@ -65,6 +65,7 @@ void Game::Play()
 
 			// Get list of valid moves
 			int steps = selectedFighter->GetSteps();
+			ConsoleReaderWriter::PrintMessage(currentPlayer, "Steps : " + to_string(steps));
 			vector<pair<int, int>> validMoves = GBoard.GetValidMoves(selectedPos.first, selectedPos.second, steps);
 
 			// If no valid moved, player misses turn
@@ -75,7 +76,6 @@ void Game::Play()
 			}
 
 			// Get user selection for move
-			ConsoleReaderWriter::PrintMessage(currentPlayer, "Steps : " + steps);
 			ConsoleReaderWriter::PrintMessage(currentPlayer, "Select move");
 			int moveSelection = ConsoleReaderWriter::GetUserSelection(validMoves);
 			pair<int, int> selectedMove = validMoves[moveSelection - 1];
@@ -89,8 +89,9 @@ void Game::Play()
 			else
 			{
 				// Fight - if another player is already present
-				ConsoleReaderWriter::PrintMessage(currentPlayer, "attacks Player" + currentOccupant.first);
+				ConsoleReaderWriter::PrintMessage(currentPlayer, "attacks Player" + to_string(currentOccupant.first));
 				bool attackerWins = DidAttackerWin(selectedFighter->Fight(), currentOccupant.second->Fight());
+				ConsoleReaderWriter::PrintMessage(currentPlayer, (attackerWins ? "Wins" : "Loses"));
 				if (attackerWins)
 				{
 					GBoard.Clear(selectedMove.first, selectedMove.second);

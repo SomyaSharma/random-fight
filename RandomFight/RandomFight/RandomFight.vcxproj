@@ -147,6 +147,8 @@
     <ClInclude Include="ConsoleReaderWriter.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="Fighter1.h" />
+    <ClInclude Include="Fighter2.h" />
+    <ClInclude Include="Fighter3.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -156,6 +158,8 @@
     <ClCompile Include="ConsoleReaderWriter.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Fighter1.cpp" />
+    <ClCompile Include="Fighter2.cpp" />
+    <ClCompile Include="Fighter3.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="RandomFight.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -2,6 +2,8 @@
 #include"Board.h"
 #include "Fighter.h"
 #include "Fighter1.h"
+#include "Fighter2.h"
+#include "Fighter3.h"
 
 #include <iostream>
 
@@ -11,7 +13,11 @@ Board::Board()
 {
 	// Initialize the board
 	SetFighterAt(0, 0, Player::Player1, make_shared<Fighter1>());
-	SetFighterAt(5, 0, Player::Player2, make_shared<Fighter1>());
+	SetFighterAt(0, 1, Player::Player1, make_shared<Fighter2>());
+	SetFighterAt(0, 2, Player::Player1, make_shared<Fighter3>());
+	SetFighterAt(BOARD_SIZE - 1, BOARD_SIZE - 1, Player::Player2, make_shared<Fighter1>());
+	SetFighterAt(BOARD_SIZE - 1, BOARD_SIZE - 2, Player::Player2, make_shared<Fighter2>());
+	SetFighterAt(BOARD_SIZE - 1, BOARD_SIZE - 3, Player::Player2, make_shared<Fighter3>());
 }
 
 // Get fighter at board location
@@ -82,7 +88,7 @@ bool Board::CheckMove(int x1, int y1, int x2, int y2)
 		{
 			foundFighter = Player::None != grid[i][y1].player;
 		}
-		if (i != x2)
+		if (foundFighter)
 		{
 			return false;
 		}
@@ -96,7 +102,7 @@ bool Board::CheckMove(int x1, int y1, int x2, int y2)
 		{
 			foundFighter = Player::None != grid[x1][j].player;
 		}
-		if (j != y2)
+		if (foundFighter)
 		{
 			return false;
 		}
