@@ -25,14 +25,21 @@ void Board::SetFighterAt(int x, int y, Player player, shared_ptr<Fighter> fighte
 	grid[x][y].fighter = fighter;
 }
 
-void Board::GetActiveFighters(Player player)
-{}
+void Board::GetActiveFighters(Player player, vector<pair<int, int>> &activePositions, vector<shared_ptr<Fighter>> &activeFighters)
+{
+	//vector<shared_ptr<Fighter>> activeFighters;
+}
+
+void Board::Clear(int x, int y)
+{
+	SetFighterAt(x, y, Player::None, nullptr);
+}
 
 void Board::Render()
 {
-	for(int x = 0; x < 6; x++)
+	for(int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = 0; y < 6; y++)
+		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (grid[x][y].fighter == nullptr)
 			{
