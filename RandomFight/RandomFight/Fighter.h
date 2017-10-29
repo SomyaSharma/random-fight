@@ -3,9 +3,15 @@
 #include <string>
 #include <vector>
 
+enum Player
+{
+	None = 0,
+	Player1,
+	Player2
+};
+
 // Base class for all fighter characters
 // All characters have a name and ranges for steps, ammo and armor
-
 class Fighter
 {
 protected:
@@ -18,6 +24,6 @@ protected:
 
 public:
 	std::string GetName();
-	std::vector<std::pair<int, int>> GetValidMoves(int x, int y);
+	int GetSteps();
 	virtual std::pair<int, int> Fight() = 0;
 };

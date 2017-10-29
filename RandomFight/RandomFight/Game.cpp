@@ -20,7 +20,7 @@ bool Game::DidAttackerWin(std::pair<int, int> attacker, std::pair<int, int> defe
 	return false;
 }
 
-void Game :: Play()
+void Game::Play()
 {
 	Player winner = Player::None;
 	int maxTurns = 10;
@@ -32,7 +32,7 @@ void Game :: Play()
 		GBoard.Render();
 
 		// For each player
-		for (int player = 1; player < PLAYER_COUNT; player++)
+		for (int player = 1; player <= 2; player++)
 		{
 			Player currentPlayer = static_cast<Player>(player);
 
@@ -45,6 +45,7 @@ void Game :: Play()
 			if (activeFighters.empty())
 			{
 				cout << "Player" << currentPlayer << " loses." << endl;
+				winner = static_cast<Player>(3 - currentPlayer);
 				break;
 			}
 
@@ -59,7 +60,8 @@ void Game :: Play()
 			pair<int, int> selectedPos = activePositions[selectedFighterIndex];
 
 			// Get list of valid moves
-			vector<pair<int, int>> validMoves = selectedFighter->GetValidMoves(selectedPos.first, selectedPos.second);
+			int steps = selectedFighter->GetSteps();
+			vector<pair<int, int>> validMoves = GBoard.GetValidMoves(selectedPos.first, selectedPos.second, steps);
 
 			// If no valid moved, player misses turn
 			if (validMoves.empty())
