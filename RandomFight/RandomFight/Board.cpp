@@ -4,7 +4,6 @@
 #include "Fighter1.h"
 #include "Fighter2.h"
 #include "Fighter3.h"
-
 #include <iostream>
 
 using namespace std;

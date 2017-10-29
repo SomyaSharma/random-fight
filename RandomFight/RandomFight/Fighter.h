@@ -20,7 +20,7 @@ protected:
 	std::pair<int, int> ammoRange;
 	std::pair<int, int> armorRange;
 
-	int RollDice(std::pair<int, int> range);
+	std::vector<int> RollDice(std::pair<int, int> range, int numRolls);
 
 public:
 	std::string GetName();
