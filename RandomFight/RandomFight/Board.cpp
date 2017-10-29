@@ -14,11 +14,14 @@ Board::Board()
 	SetFighterAt(5, 0, Player::Player2, make_shared<Fighter1>());
 }
 
+// Get fighter at board location
 pair<Player, shared_ptr<Fighter>> Board::GetFighterAt(int x, int y)
 {
 	return make_pair(grid[x][y].player, grid[x][y].fighter);
 }
 
+// Set fighter to board location
+// Clear location if empty
 void Board::SetFighterAt(int x, int y, Player player, shared_ptr<Fighter> fighter)
 {
 	if (fighter == nullptr)
@@ -33,11 +36,13 @@ void Board::SetFighterAt(int x, int y, Player player, shared_ptr<Fighter> fighte
 	}
 }
 
+// Get list of the player's active fighters i.e. fighter still on the board
+// Return list of positions and list of fighters
 void Board::GetActiveFighters(Player player, vector<pair<int, int>> &activePositions, vector<shared_ptr<Fighter>> &activeFighters)
 {
-	for (int x = 0; x <= BOARD_SIZE; x++)
+	for (int x = 0; x < BOARD_SIZE; x++)
 	{
-		for (int y = 0; y <= BOARD_SIZE; y++)
+		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (grid[x][y].player == player)
 			{
@@ -48,12 +53,55 @@ void Board::GetActiveFighters(Player player, vector<pair<int, int>> &activePosit
 	}
 }
 
+// Check if a move is valid
+// 1. No fighter of the same player is present
+// 2. The new position is within the board's dimensions
+// 3. No fighters are present in the path from old to new position
 bool Board::CheckMove(int x1, int y1, int x2, int y2)
 {
+	// Check if the player has another fighter at new position
 	if (grid[x1][y1].player == grid[x2][y2].player)
 	{
 		return false;
 	}
+
+	// Check if new position is within the board's dimentions
+	if ((x1 != x2 && (x2 < 0 || x2 >= BOARD_SIZE))
+		|| (y1 != y2 && (y2 < 0 || y2 >= BOARD_SIZE)))
+	{
+		return false;
+	}
+
+	// Check if another fighter is present in the path from old to new position
+	bool foundFighter = false;
+	if (x1 != x2)
+	{
+		int xcount = x2 > x1 ? 1 : -1;
+		int i = x1 + xcount;
+		for (; i != x2 && !foundFighter; i = i + xcount)
+		{
+			foundFighter = Player::None != grid[i][y1].player;
+		}
+		if (i != x2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		foundFighter = false;
+		int ycount = y2 > y1 ? 1 : -1;
+		int j = y1 + ycount;
+		for (; j != y2 && !foundFighter; j = j + ycount)
+		{
+			foundFighter = Player::None != grid[x1][j].player;
+		}
+		if (j != y2)
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -80,27 +128,37 @@ vector<pair<int, int>> Board::GetValidMoves(int x, int y, int steps)
 	return validMoves;
 }
 
+// Clear board position
 void Board::Clear(int x, int y)
 {
 	grid[x][y].player = Player::None;
 	grid[x][y].fighter.reset();
 }
 
+// Render board
 void Board::Render()
 {
+	cout << endl << "\t";
+	for (int header = 0; header < BOARD_SIZE; header++)
+	{
+		cout << header << "\t";
+	}
+	cout << endl;
 	for(int x = 0; x < BOARD_SIZE; x++)
 	{
+		cout << x << "\t";
 		for (int y = 0; y < BOARD_SIZE; y++)
 		{
 			if (grid[x][y].fighter == nullptr)
 			{
-				cout << " _ ";
+				cout << " _ " << "\t";
 			}
 			else
 			{
-				cout << grid[x][y].fighter->GetName() << grid[x][y].player;
+				cout << grid[x][y].fighter->GetName() << grid[x][y].player << "\t";
 			}
 		}
 		cout << endl;
 	}
+	cout << endl;
 }

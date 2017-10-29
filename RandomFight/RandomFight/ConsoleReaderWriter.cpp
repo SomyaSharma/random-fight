@@ -15,14 +15,22 @@ void ConsoleReaderWriter::PrintWelcome()
 		<< "- The player will be given a list of possible moves to choose from." << endl
 		<< "- If the player chooses to land at a position where the other player's fighter is present. They'll fight." << endl
 		<< "- Each fighter will get an (ammo, armor) pair based on its fighting technique and dice rolls. The losing fighter is removed from the board." << endl
-		<< "- Last player standing wins!" << endl;
+		<< "- Last player standing wins!" << endl << endl;
 }
 
 // Print winner message
 void ConsoleReaderWriter::PrintWinnerMessage(Player player)
 {
-	cout << "Congratulation!" << endl
+	cout << endl << "Congratulation!" << endl
 		<< "Player " << player << " wins!" << endl;
+	cin.get();
+}
+
+// Print message for player
+void ConsoleReaderWriter::PrintMessage(Player player, std::string message)
+{
+	cout << "PLAYER" << player << ": "
+		<< message << endl;
 }
 
 // Get user selection for fighter
@@ -31,9 +39,9 @@ int ConsoleReaderWriter::GetUserSelection(std::vector<std::string> options)
 	cout << "Make a selection:" << endl;
 
 	int numOptions = static_cast<int>(options.size());
-	for (int i = 1; i <= numOptions; i++)
+	for (int i = 0; i < numOptions; i++)
 	{
-		cout << i << ". " << options[i - 1] << endl;
+		cout << i + 1 << ". " << options[i] << endl;
 	}
 	return GetUserInput(numOptions);
 }
@@ -44,13 +52,12 @@ int ConsoleReaderWriter::GetUserSelection(std::vector<std::pair<int, int>> optio
 	cout << "Make a selection:" << endl;
 
 	int numOptions = static_cast<int>(options.size());
-	for (int i = 1; i <= numOptions; i++)
+	for (int i = 0; i < numOptions; i++)
 	{
-		cout << i << ". [" << options[i - 1].first << ", " << options[i - 1].second << "]" << endl;
+		cout << i + 1 << ". [" << options[i].first << ", " << options[i].second << "]" << endl;
 	}
 	return GetUserInput(numOptions);
 }
-
 
 // Get valid user selection
 int ConsoleReaderWriter::GetUserInput(int numOptions)

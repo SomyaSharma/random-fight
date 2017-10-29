@@ -9,6 +9,8 @@ Board Game::GBoard;
 
 bool Game::DidAttackerWin(std::pair<int, int> attacker, std::pair<int, int> defender)
 {
+	cout << "Attacker : Ammo(" << attacker.first << ") Armor(" << attacker.second << ")" << endl;
+	cout << "Defender : Ammo(" << defender.first << ") Armor(" << defender.second << ")" << endl;
 	if (attacker.first > defender.second)
 	{
 		return true;
@@ -28,13 +30,14 @@ void Game::Play()
 	while (winner == Player::None && i<maxTurns)
 	{
 		i++;
-		// Render board
-		GBoard.Render();
-
 		// For each player
 		for (int player = 1; player <= 2; player++)
 		{
+			// Render board
+			GBoard.Render();
+
 			Player currentPlayer = static_cast<Player>(player);
+			ConsoleReaderWriter::PrintMessage(currentPlayer, "Turn begins");
 
 			// Get list of active fighters for current player
 			vector<shared_ptr<Fighter>> activeFighters;
@@ -44,12 +47,13 @@ void Game::Play()
 			// If no active fighters, player loses
 			if (activeFighters.empty())
 			{
-				cout << "Player" << currentPlayer << " loses." << endl;
+				ConsoleReaderWriter::PrintMessage(currentPlayer, "No active fighters.");
 				winner = static_cast<Player>(3 - currentPlayer);
 				break;
 			}
 
 			// Get user selection for fighter
+			ConsoleReaderWriter::PrintMessage(currentPlayer, "Select Fighter");
 			vector<string> fighterList;
 			for (size_t fighterCount = 0; fighterCount < activeFighters.size(); fighterCount ++)
 			{
@@ -66,11 +70,13 @@ void Game::Play()
 			// If no valid moved, player misses turn
 			if (validMoves.empty())
 			{
-				cout << "No valid moves for selected fighter" << endl;
+				ConsoleReaderWriter::PrintMessage(currentPlayer, "No valid moves for selected fighter");
 				continue;
 			}
 
 			// Get user selection for move
+			ConsoleReaderWriter::PrintMessage(currentPlayer, "Steps : " + steps);
+			ConsoleReaderWriter::PrintMessage(currentPlayer, "Select move");
 			int moveSelection = ConsoleReaderWriter::GetUserSelection(validMoves);
 			pair<int, int> selectedMove = validMoves[moveSelection - 1];
 
@@ -83,6 +89,7 @@ void Game::Play()
 			else
 			{
 				// Fight - if another player is already present
+				ConsoleReaderWriter::PrintMessage(currentPlayer, "attacks Player" + currentOccupant.first);
 				bool attackerWins = DidAttackerWin(selectedFighter->Fight(), currentOccupant.second->Fight());
 				if (attackerWins)
 				{
@@ -91,7 +98,9 @@ void Game::Play()
 				}
 			}
 
-			GBoard.Clear(selectedMove.first, selectedMove.second);
+			GBoard.Clear(selectedPos.first, selectedPos.second);
 		}
 	}
+
+	ConsoleReaderWriter::PrintWinnerMessage(winner);
 }
