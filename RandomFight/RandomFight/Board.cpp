@@ -41,7 +41,7 @@ void Board::SetFighterAt(int x, int y, Player player, shared_ptr<Fighter> fighte
 	}
 }
 
-// Get list of the player's active fighters i.e. fighter still on the board
+// Get list of the player's active fighters i.e. fighters still on the board
 // Return list of positions and list of fighters
 void Board::GetActiveFighters(Player player, vector<pair<int, int>> &activePositions, vector<shared_ptr<Fighter>> &activeFighters)
 {

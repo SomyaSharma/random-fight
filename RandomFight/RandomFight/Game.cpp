@@ -7,6 +7,7 @@ using namespace std;
 
 Board Game::GBoard;
 
+// Evaluate a fight between fighters based on (ammo, armor)
 bool Game::DidAttackerWin(std::pair<int, int> attacker, std::pair<int, int> defender)
 {
 	cout << "Attacker : Ammo(" << attacker.first << ") Armor(" << attacker.second << ")" << endl;
@@ -22,14 +23,13 @@ bool Game::DidAttackerWin(std::pair<int, int> attacker, std::pair<int, int> defe
 	return false;
 }
 
+// Primary function for gameplay
 void Game::Play()
 {
 	Player winner = Player::None;
-	int maxTurns = 10;
-	int i = 0;
-	while (winner == Player::None && i<maxTurns)
+
+	while (winner == Player::None)
 	{
-		i++;
 		// For each player
 		for (int player = 1; player <= 2; player++)
 		{
@@ -63,12 +63,12 @@ void Game::Play()
 			shared_ptr<Fighter> selectedFighter = activeFighters[selectedFighterIndex];
 			pair<int, int> selectedPos = activePositions[selectedFighterIndex];
 
-			// Get list of valid moves
+			// Get list of valid moves for selected fighter
 			int steps = selectedFighter->GetSteps();
 			ConsoleReaderWriter::PrintMessage(currentPlayer, "Steps : " + to_string(steps));
 			vector<pair<int, int>> validMoves = GBoard.GetValidMoves(selectedPos.first, selectedPos.second, steps);
 
-			// If no valid moved, player misses turn
+			// If no valid moves, player misses turn
 			if (validMoves.empty())
 			{
 				ConsoleReaderWriter::PrintMessage(currentPlayer, "No valid moves for selected fighter");
@@ -80,7 +80,7 @@ void Game::Play()
 			int moveSelection = ConsoleReaderWriter::GetUserSelection(validMoves);
 			pair<int, int> selectedMove = validMoves[moveSelection - 1];
 
-			// Check current occupant
+			// Check current occupant of selected move position
 			pair<Player, shared_ptr<Fighter>> currentOccupant = GBoard.GetFighterAt(selectedMove.first, selectedMove.second);
 			if (currentOccupant.first == Player::None)
 			{
@@ -88,7 +88,7 @@ void Game::Play()
 			}
 			else
 			{
-				// Fight - if another player is already present
+				// Another player is already present => Fight
 				ConsoleReaderWriter::PrintMessage(currentPlayer, "attacks Player" + to_string(currentOccupant.first));
 				bool attackerWins = DidAttackerWin(selectedFighter->Fight(), currentOccupant.second->Fight());
 				ConsoleReaderWriter::PrintMessage(currentPlayer, (attackerWins ? "Wins" : "Loses"));

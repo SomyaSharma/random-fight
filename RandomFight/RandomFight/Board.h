@@ -3,9 +3,10 @@
 #include "Fighter.h"
 
 #define BOARD_SIZE 6
-#define FIGHTER_COUNT 6
+#define FIGHTER_COUNT 3
 #define MOTION_RANGE 4
 
+// Class to represent the game board
 class Board
 {
 	struct Square
