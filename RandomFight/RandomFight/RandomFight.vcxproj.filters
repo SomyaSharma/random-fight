@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Fighter Headers">
+      <UniqueIdentifier>{b772eb9b-cc2e-4a21-b6c7-b753adca45b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fighter Classes">
+      <UniqueIdentifier>{ae51a30d-785d-4910-a37c-f3ad6773d0a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,14 +33,20 @@
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Fighter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fighter1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ConsoleReaderWriter.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter.h">
+      <Filter>Header Files\Fighter Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter1.h">
+      <Filter>Header Files\Fighter Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter2.h">
+      <Filter>Header Files\Fighter Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter3.h">
+      <Filter>Header Files\Fighter Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,12 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RandomFight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fighter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fighter1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
@@ -58,6 +64,18 @@
     </ClCompile>
     <ClCompile Include="ConsoleReaderWriter.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fighter.cpp">
+      <Filter>Source Files\Fighter Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fighter1.cpp">
+      <Filter>Source Files\Fighter Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fighter2.cpp">
+      <Filter>Source Files\Fighter Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fighter3.cpp">
+      <Filter>Source Files\Fighter Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

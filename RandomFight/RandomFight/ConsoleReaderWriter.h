@@ -7,6 +7,7 @@ namespace ConsoleReaderWriter
 {
 	void PrintWelcome();
 	void PrintWinnerMessage(Player player);
+	void PrintMessage(Player player, std::string message);
 	int GetUserSelection(std::vector<std::string> options);
 	int GetUserSelection(std::vector<std::pair<int, int>> options);
 	int GetUserInput(int numOptions);
