@@ -48,7 +48,7 @@ void Game::Play()
 			if (activeFighters.empty())
 			{
 				ConsoleReaderWriter::PrintMessage(currentPlayer, "No active fighters.");
-				winner = static_cast<Player>(3 - currentPlayer);
+				winner = static_cast<Player>(3 - player);
 				break;
 			}
 
@@ -85,6 +85,7 @@ void Game::Play()
 			if (currentOccupant.first == Player::None)
 			{
 				GBoard.SetFighterAt(selectedMove.first, selectedMove.second, currentPlayer, selectedFighter);
+				GBoard.Clear(selectedPos.first, selectedPos.second);
 			}
 			else
 			{
@@ -97,9 +98,16 @@ void Game::Play()
 					GBoard.Clear(selectedMove.first, selectedMove.second);
 					GBoard.SetFighterAt(selectedMove.first, selectedMove.second, currentPlayer, selectedFighter);
 				}
-			}
+				GBoard.Clear(selectedPos.first, selectedPos.second);
 
-			GBoard.Clear(selectedPos.first, selectedPos.second);
+				// Check if losing fighter was the last fighter for player
+				Player losingFighterPlayer = attackerWins ? currentOccupant.first : currentPlayer;
+				if (!GBoard.IsPlayerInGame(losingFighterPlayer))
+				{
+					winner = static_cast<Player>(3 - static_cast<int>(losingFighterPlayer));
+					break;
+				}
+			}
 		}
 	}
 

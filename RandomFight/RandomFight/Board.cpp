@@ -41,6 +41,23 @@ void Board::SetFighterAt(int x, int y, Player player, shared_ptr<Fighter> fighte
 	}
 }
 
+// Check if player is in game
+// I.e. player has at least 1 fighter
+bool Board::IsPlayerInGame(Player player)
+{
+	for (int x = 0; x < BOARD_SIZE; x++)
+	{
+		for (int y = 0; y < BOARD_SIZE; y++)
+		{
+			if (grid[x][y].player == player)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 // Get list of the player's active fighters i.e. fighters still on the board
 // Return list of positions and list of fighters
 void Board::GetActiveFighters(Player player, vector<pair<int, int>> &activePositions, vector<shared_ptr<Fighter>> &activeFighters)
